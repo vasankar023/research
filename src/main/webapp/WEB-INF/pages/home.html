@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title></title>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel='icon' href='./images/favicon.ico'>
+
+      <!-- Libraries -->
+      <link href="libs/jqueryUI/jquery-ui.min.css" rel="stylesheet">
+      <link href="libs/jqueryUI/jquery-ui-autocomplete-category.css" rel="stylesheet">
+      <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="libs/bootstrap/css/bootstrap-select.min.css" rel="stylesheet">
+      <link href="libs/bootstrap/css/datepicker3.css" rel="stylesheet">
+
+
+      <script src="libs/angularjs/angular.js"></script>
+      <script src="libs/jquery/jquery.js"></script>
+      <script src="libs/jqueryUI/jquery-ui.min.js"></script>
+      <script src="libs/jqueryUI/jquery-ui-autocomplete-category.js"></script>
+      <script src="libs/jqueryCookie/jquery.cookie.js"></script>
+      <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+      <script src="libs/bootstrap/js/bootstrap-select.min.js"></script>
+      <script src="libs/bootstrap/js/bootstrap-datepicker.js"></script>
+
+      <!-- Non-Library Files -->
+
+      <script src="js/variables.js"></script>
+      <script src="js/default.js"></script>
+      <script src="js/index.js"></script>
+      <!--<script src="js/aaa_enterprise_search_widget.js"></script>-->
+      
+
+   </head>
+   <body>
+
+      <header class="container">
+         <div id="headerContainer" class="container">
+            
+            <a id="logoContainer" href="#">
+               <img id="logo" src="images/American_Automobile_Association_logo.png" alt="AAA" />
+               <span id="title">  &nbsp;&nbsp; <font size="4" style="font-weight:bold;">Ride Share Portal</font> </span>
+            </a>
+
+            <!--<div id="signInButton" class=""><a href="#">Sign In</a></div>-->
+               
+         </div>
+      </header>
+
+      <div id="pageContainer" >
+
+         <div class="row-centered">
+             <div class="col-lg-6 col-centered" style="left:25%;">
+
+                 <div id="searchWidget" class="row">
+							Coming Soon..........
+                 </div>
+             </div>
+
+         </div>
+         
+         
+         
+
+            <!-- Sign-In form  -->
+            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content" id="signInForm">
+                        <form class="form-signin"  id="loginForm" method="get">       
+                            <h2 class="form-signin-heading">Please Login</h2>
+                            <input type="text" class="form-control" name="textinput" id="loginName" placeholder="User Name" required="" autofocus="" />
+                            <input type="password" class="form-control" name="passwordinput" id="loginPwd" placeholder="Password" required=""/>  
+
+                            <button class="btn btn-lg btn-primary btn-block" id="clickevent"  type="submit">Login</button>   
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- End Sign-In form  -->
+
+            <!-- Register form  -->
+            <div class="modal fade bs-example2-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content" id="registerForm">
+                        <form class="form-signinin"  id="registerFormID" method="get">       
+                            <h2 class="form-signin-heading">Please Register</h2>
+                                <input type="text" class="form-control" name="emailinput" id="email" placeholder="Email Address" required="" autofocus="" />
+                            <input type="password" class="form-control" name="passwordinput" id="regPwd" placeholder="Password" required=""/>  
+                             <input type="password" class="form-control" name="confirmpasswordinput" id="confirmRegPwd" placeholder="Confirm Password" required=""/>  
+
+                            <button class="btn btn-lg btn-primary btn-block" id="clickevent2"  type="submit">Login</button>   
+                        </form>
+                    </div>
+                </div>
+            </div>  <!-- End Register form  -->
+         
+
+      </div>
+
+      <footer class="footer">
+         <div id="footerContainer" class="container">
+            <div class="navbar-header">
+               <a id="copyrightMessage" href="#"></a>
+            </div>
+
+            <div id="footerLinks" class="">
+               <a href="#">NEED HELP?</a>
+               <a href="#">PRIVACY POLICY</a>
+            </div>
+         </div>
+      </footer>
+
+      
+      
+      <link href="css/default.css" rel="stylesheet">
+      
+   </body>
+</html>

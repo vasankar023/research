@@ -1,0 +1,77 @@
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+<div id='aaa_enterprise_search_widget'>
+
+   <div id='aaa_enterprise_search_widget_description'>
+      Some textual description of the search tool and its capabilities.</div>
+
+   <div id='aaa_enterprise_search_widget_searchWrapper'>
+      <input id='aaa_enterprise_search_widget_searchInput' type='text' placeholder='Search Word' data-analytics-label="Header-SearchBox-Search-textfield">
+      <span id='aaa_enterprise_search_widget_searchButtonSpan'>
+         <button id='aaa_enterprise_search_widget_searchButton' type='button' data-analytics-label="Header-SearchBox-SearchIcon-Icon">
+            <!-- span id='aaa_enterprise_search_widget_searchButtonImage' class='glyphicon glyphicon-search' aria-hidden='true'></span> -->
+         </button>
+      </span>
+      
+      
+   </div>
+   
+</div>
+<script>
+var ecsHost="";
+try{
+if(document.getElementById('searchWidget').getAttribute('name')!=null) ecsHost = document.getElementById('searchWidget').getAttribute('name');
+}catch(e){}
+function performSearch() {
+      var searchInput = document.getElementById('aaa_enterprise_search_widget_searchInput');
+      if (searchInput) {
+         var searchText = searchInput.value;
+         window.open(ecsHost + '/kbs/results?s=' + encodeURIComponent(searchText.trim()));
+      }
+   }
+   document.getElementById('aaa_enterprise_search_widget_searchInput').addEventListener('keypress', function (e) {
+      var key = e.which || e.keyCode;
+      if (key == 13) {
+         performSearch();
+      }
+   }
+   );
+   document.getElementById('aaa_enterprise_search_widget_searchButton').addEventListener('click', performSearch);
+   
+   $(document).ready(function ()
+   {
+	   //$('#aaa_enterprise_search_widget_searchButtonImage').attr('src', ecsHost+'/ecs/images/aaa_enterprise_search_widget_icon.png');
+      /* Get autocomplete*/
+      setupAutosuggest('#aaa_enterprise_search_widget_searchInput')
+   });
+   
+   function setupAutosuggest(inputElement) {
+   $(inputElement)
+      // don't navigate away from the field on tab when selecting an item
+      .bind("keydown", function (event) {
+         if (event.keyCode === $.ui.keyCode.TAB && $(this).autocomplete("instance").menu.active) {
+            event.preventDefault();
+         }
+      })
+      .autocomplete({minLength: 3,
+         source: function (request, response)
+         {
+            //var url = WS.HOST + WS.URLS.GET_AUTOSUGGEST + "?" + UrlSearchParameter + "=" + request.term;
+            var url = ecsHost + "/kbs/search/autocomplete?q=" + request.term;
+            $.getJSON(url, function (data) 
+            {
+               response($.map(data.term[0].options, function (value, key) 
+               {
+                  return value.text;
+               }));
+            });
+         },
+         select: function( event, ui ) 
+         {
+            $(inputElement).val(ui.item.value);
+            performSearch();
+         }
+      });
+   
+}
+</script>

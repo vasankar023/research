@@ -1,0 +1,672 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<title></title>
+<meta http-equiv="X-UA-Compatible" content="IE=9,IE=EDGE,chrome=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+<!-- Libraries -->
+<link href="libs/jqueryUI/jquery-ui.min.css" rel="stylesheet">
+<link href="libs/jqueryUI/jquery-ui-autocomplete-category.css" rel="stylesheet">
+<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="libs/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="libs/bootstrap/css/bootstrap-select.min.css" rel="stylesheet">
+<!--  <link href="libs/bootstrap/css/datepicker3.css" rel="stylesheet"> -->
+<link href="libs/jqueryUI/theme-smoothness/jquery-ui.min.css" rel="stylesheet">
+
+<script src="js/jcl/aaaie-0.4.39.min.js"></script>
+<script src="libs/angularjs/angular.js"></script>
+<script src="libs/jquery/jquery.js"></script>
+<script src="libs/jqueryCookie/jquery.cookie.js"></script>
+<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap/js/bootstrap-select.min.js"></script>
+<!-- <script src="libs/bootstrap/js/bootstrap-datepicker.js"></script> -->
+<script src="libs/jqueryUI/jquery-ui.min.js"></script>
+<script src="libs/history/jquery.history.js"></script>
+
+
+<!-- Non-Library Files -->
+<link href="css/default.css" rel="stylesheet">
+<link href="css/search.css" rel="stylesheet">
+
+<script src="js/variables.js"></script>
+<script src="js/default.js"></script>
+<script src="js/search2.js"></script>
+</head>
+
+
+<body>
+	<!-- THe main container -->
+	<header class="container-fluid row">
+
+		<!--   <div id="headerContainer" class="container-fluid">  -->
+
+		<div class="col-xs-2 col-sm-3 col-md-3 col-lg-3">
+			<a id="logoContainer" href="./"> <img id="logo" style="padding-left:10px;"
+				src="images/American_Automobile_Association_logo.png" alt="AAA" />
+			</a>
+		</div>
+
+		<!-- Search and Search Tips -->
+		<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 ">
+			<div class="col-xs-12">
+
+			<div id="searchWrapper" class="input-group">
+				<input id="searchInput" type="text" class="form-control"
+					placeholder="Search Word" maxlength="140" data-analytics-label="Header-SearchBox-Search-textfield"/> <span
+					id="searchButtonSpan" class="input-group-btn">
+					<button id="searchButton" class="btn btn-default label-danger" type="button">
+						<img id='aaa_enterprise_search_widget_searchButtonImage' src="images/searchicon.PNG" alt=''  data-analytics-label="Header-SearchBox-SearchIcon-Icon"/>
+					</button>
+				</span>
+			</div>
+			</div>
+
+			<div class="col-xs-12"  id="tips">
+			<a id="searchTips" class="btn btn-primary" data-toggle="modal" data-target="#searchTipModal" data-analytics-label="Header-SearchTips-SearchTips-Link">
+				<span>Search Tips</span>
+			</a>
+		</div>
+			</div>
+		<!-- End  -->
+
+
+		<!-- Search Within Results -->
+		<div class="col-xs-4 col-sm-3 col-md-3 col-lg-3" style="padding-top: 15px;">
+			<input type="checkbox" id="withinSearch" name="withinSearch"  onclick="searchwithinresultclick()" data-analytics-label="Header-SearchWithinResults-Click-checkbox"/> <label id="withinSearchLabel"
+				for="withinSearch" style="color: #5F6062;">Search Within
+				Results</label>
+		</div>
+		<!-- End -->
+
+		<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2  search-within-column"
+			style="padding-top: 15px; padding-left: 15px; ">
+			Welcome, <label id="profileName">Guest</label> <a id="needHelp"
+				class="btn btn-primary" data-toggle="modal"
+				data-target=".bs-example-modal-lg-help" data-analytics-label="Header-NeedHelp-NeedHelp-Link"
+				><b>NEED HELP?</b></a>
+		</div>
+		<!-- End Need Help -->
+	
+	</header>
+	<!-- End Header -->
+
+
+	<!-- Page Container -->
+
+	<!-- Filter searches. -->
+	<div id="narrowResults" class="col-xs-12 col-sm-4 col-md-4 col-lg-2 "
+		style="margin-top: 0px; background: white;">
+
+		<div class="col-xs-12" id="narrowResultsTitle">
+
+			<h4 id="narrowTitle" class="sectionTitle" style="color: #0053A6;">
+				<b>Filter By</b>
+			</h4>
+		</div>
+
+		<div id="narrowResultsList" class=" col-xs-12 ">
+
+		<div class="panel panel-default" id="panel5">
+				<div class="panel-heading" id="pHeading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-target="#collapse5"
+							href="#collapse5"> <span class="state-indicator"></span>
+							By Document Type
+						</a>
+					</h4>
+
+				</div>
+
+				<div id="collapse5" class="panel-collapse collapse in">
+
+					<div id="docTypeList"></div>
+				</div>
+			</div>
+			<!--   <div class="panel-group" id="accordion">  -->
+			
+			<div class="panel panel-default" id="panel1">
+				<div class="panel-heading" id="pHeading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-target="#collapse1"
+							href="#collapse1"> <span class="state-indicator"></span> By
+							Date
+						</a>
+					</h4>
+
+				</div>
+
+				<div id="collapse1" class="panel-collapse collapse in">
+
+					<!--  Start of Date Range -->
+					<div id="checkbox_date_div">
+						<span class="input-group"> <input type="radio"
+							id="checkbox_date_any" name="checkbox_date_last"
+							checked="checked" data-analytics-label="FilterBy-Date-None-radiobutton"
+							/> <label for="checkbox_date_any">None</label>
+						</span> <span class="input-group"> <input type="radio"
+							id="checkbox_date_last_3_months" name="checkbox_date_last"
+							value="3" data-analytics-label="FilterBy-Date-Past3Months-radiobutton"
+							 /> <label for="checkbox_date_last_3_months">Past
+								3 Months</label>
+						</span> <span class="input-group"> <input type="radio"
+							id="checkbox_date_last_6_months" name="checkbox_date_last"
+							value="6" data-analytics-label="FilterBy-Date-Past6Months-radiobutton"
+							/> <label for="checkbox_date_last_6_months">Past
+								6 Months</label>
+						</span> <span class="input-group"> <input type="radio"
+							id="checkbox_date_last_1_year" name="checkbox_date_last"
+							value="12" data-analytics-label="FilterBy-Date-PastYear-radiobutton"
+							/> <label for="checkbox_date_last_1_year">Past
+								Year</label>
+						</span> <span class="input-group"> <input type="radio"
+							id="checkbox_date_last_2_years" name="checkbox_date_last"
+							value="24" data-analytics-label="FilterBy-Date-Past2Years-radiobutton"
+							/> <label for="checkbox_date_last_2_years">Past
+								2 Years</label>
+						</span> <span class="input-group"> <input type="radio"
+							id="checkbox_date_custom" name="checkbox_date_custom" value="24"
+							data-toggle="collapse" data-target="#collapse4" data-analytics-label="FilterBy-Date-CustomDateRange-radiobutton"
+							/> <label
+							for="checkbox_date_custom">Custom Date Range</label>
+						</span>
+						<div id="collapse4" class="panel-collapse collapse in">
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+								<span>Start</span> <input id="filter_date_start"
+									class="form-control" style="min-width:60px;" data-analytics-label="FilterBy-Date-CustomRangeStartDate-textfield"
+									/>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+								<span>End</span> <input id="filter_date_end"
+									class="form-control" style="min-width:60px;" data-analytics-label="FilterBy-Date-CustomRangeEndDate-textfield"
+									/>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div style="clear: both;"></div>
+				</div>
+				<!--  End of dataCheckbox -->
+
+			</div>
+
+			<!-- End collapseOne -->
+
+			<div class="panel panel-default" id="panel2">
+				<div class="panel-heading" id="pHeading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-target="#collapse2"
+							href="#collapse2"> <span class="state-indicator"></span>
+							By Source
+						</a>
+					</h4>
+
+				</div>
+
+				<div id="collapse2" class="panel-collapse collapse in">
+
+					<div id="categoriesList"></div>
+				</div>
+			</div>
+			<!-- End of Categories -->
+
+
+			<div class="panel panel-default" id="panel3">
+				<div class="panel-heading" id="pHeading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-target="#collapse3"
+							href="#collapse3"> <span class="state-indicator"></span>
+							By Subject Area
+						</a>
+					</h4>
+
+				</div>
+
+				<div id="collapse3" class="panel-collapse collapse in">
+					<div id="topicsList"></div>
+				</div>
+			</div>
+			<!-- End of Topics -->
+
+		</div>
+		<!--  End of narrowResultList -->
+
+	</div>
+	<!-- End of Filter -->
+
+
+
+	<!-- Start of Search Result -->
+	<div id="resultsAndFilterWrapper" class="col-xs-12 col-sm-8 col-md-8 col-lg-10">
+
+		<div id="searchAddons" class="col-xs-12 " style="color: white;">
+			<b style="color: #0053A6;"> Search Terms: </b>
+		</div>
+
+
+		<div style="clear: both;"></div>
+
+
+		<!-- Contact Card -->
+	<!--  	<div id="contactCard" class="col-xs-12"> -->
+			<div id="contactCard_mainInfo" class="col-xs-12">
+			 <div  class="col-xs-2" style="width:15%">
+				
+				<div id="contactCard_contactimage" class="col-xs-12"
+					style="display: inline; float: right; text-align:right;width:100%">
+					<img id="contactCard_contactimg"
+						src="images/PersonPlaceholder.200x150x32.png" alt="Contact card"
+						style=" padding-left: 10px;" />
+				</div>
+				
+				<div id="contactCard_moreInfo"  calss="col-xs-12"  >
+						<a id="contactCardMoreInfo" data-toggle="modal"
+							data-target=".bs-example-modal-2" href="" target="_blank" data-analytics-label="Body-People-MoreInfo-Link">More
+							Info</a>
+				</div>
+			</div>	
+				
+				<div  class="col-xs-10" style="float:right;" style="width:85%">
+					<div class="row" style="padding-bottom:15px;">
+					<div id="contactCard_name"
+						class="col-xs-12  col-lg-2  col-sm-4  col-md-3 contactCard_name contactCard_info" ></div>
+					<div id="contactCard_position"
+						class="col-xs-12  col-lg-10 col-sm-8 col-md-9 contactCard_position contactCard_info"></div>
+					</div>	
+                   
+                    <div class="row" style="padding-bottom:5px;">
+					<div  class="col-xs-12 col-lg-2  col-sm-4 col-md-3 contactCard_info" style=" padding-left:0.8%;" >
+						<div id="workdiv">
+							<img src="images/cell.PNG" alt="work"
+								id="contactCard_workPhoneimg" /><label
+								id="contactCard_workPhone" ></label>
+						</div>
+					</div>
+					
+					<div  class="col-xs-12 col-lg-10  col-sm-8 col-md-9 contactCard_info" style="height: 24px; padding-left:1%;">
+						<div id="emaildiv">
+							 <img src="images/email.PNG" alt="email"
+								id="contactCard_emailimg" /> <label
+								id="contactCard_email" onclick="emailclick()" 
+								data-analytics-label="Body-People-EmailClick-Link"
+								> </label>
+						</div>
+					</div>
+					
+					</div>
+					
+					<div class="row" >
+					<div  class="col-xs-12 col-lg-2  col-sm-4 col-md-3 contactCard_info" style="height: 24px; padding-left:0.8%;">
+						<div id="mobilediv">
+							<img id="contactCard_mobilePhoneimg" src="images/work.PNG"
+								alt="Mobile"/><label
+								id="contactCard_mobilePhone" ></label>
+						</div>
+					</div>
+					
+					<div  class="col-xs-12 col-lg-4  col-sm-8  col-md-5 contactCard_info" style="height: 24px; padding-left:1%;">
+						<div id="cubediv">
+							<img id="contactCard_deskimg" src="images/desk.PNG"
+								alt="Desk" style="margin-left: 3px;"  /><label
+								id="contactCard_cube" ></label>
+						</div>											
+					</div>
+					
+					<div id="contactCard_pagination" class="col-xs-12 col-lg-6 col-sm-12 col-md-4"
+						style="text-align: right; float: right;">
+						
+						<button id='contact_pagination_prev' type="button"
+							class="btn btn-default btn-sm" disabled="disabled" 							
+							data-analytics-label="Body-People-CarouselBackward-Icon">
+							<span data-analytics-label="Body-People-CarouselBackward-Icon"
+							><em>&lt;</em></span>						
+						</button>
+						
+						<label id="contactCard_currentIndex">1</label> of <label
+							id="contactCard_max">20</label>
+							
+						<button id='contact_pagination_next' type="button"
+							class="btn btn-default btn-sm"
+							data-analytics-label="Body-People-CarouselForward-Icon">
+							<span data-analytics-label="Body-People-CarouselForward-Icon"
+							><em>&gt;</em></span>
+						<!-- 	<span class="glyphicon glyphicon-arrow-right"></span>  -->
+						</button>
+					</div>
+					</div>
+					<!--      <div class="col-xs-12 contactCard_info"></div> -->
+                    
+                                    
+				
+
+					
+				</div>
+			</div>
+
+	<!--  </div> -->	
+
+		<!-- End Contact Card -->
+
+
+
+		<div id="filterWrapper">
+
+			<div class="col-xs-5 " >
+				<!--<b style="color: #0053A6;">Results</b> &nbsp;&nbsp;&nbsp;&nbsp; <label id="resultCount"
+					style="color: grey;">0</label><span style="color: grey;"> Results
+				</span>   -->
+				<label id="resultCount" style="color: grey;"></label>
+			</div>
+
+
+			<div id="sortByAndResultCount" class="col-xs-7 ">
+				<form id="form_sort" style="float:right;"> 	
+				<label for="sortBy" >Sort By</label> <select
+					id="sortBySelect" class="selectpicker" data-style="btn-primary" data-width="140px">
+					<option value="" data-analytics-label="Body-Results-SortByBestMatch-SelectOptions"
+					>default</option>
+					<option value="dateDesc" data-analytics-label="Body-Results-SortByNewest-SelectOptions"
+					>Newest</option>
+					<option value="dateAsc" data-analytics-label="Body-Results-SortByOldest-SelectOptions"
+					>Oldest</option>
+				</select> 
+				&nbsp;&nbsp;&nbsp;&nbsp;
+
+				<label for="resultsPerPage" style="color: #636363;">Results
+					Per Page</label> <select id="resultsPerPageSelect"  class="selectpicker" data-style="btn-primary" data-width="90px">
+					<option value="10" selected="selected" data-analytics-label="Body-Results-ResultsPerPage10-SelectOptions"
+					>default</option>
+					<option value="25" data-analytics-label="Body-Results-ResultsPerPage25-SelectOptions"
+					>25</option>
+					<option value="50" data-analytics-label="Body-Results-ResultsPerPage50-SelectOptions"
+					>50</option>
+				</select>
+			</form>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+		<!-- End Result Heading -->
+
+		<div id="searchResults" class="col-xs-12"></div>
+		<!-- Pagination Start -->
+	<div id="resultsPaginationWrapper" class="col-xs-10"
+		style="text-align: right; width: 100%; float: right; position: right; bottom: 0;">
+		<label for="pageInput" nextprev="false" style="color: white;">Page</label>
+		<input id="pageInput" value="0"
+			style="width: 35px; text-align: center;" /> <label
+			style="color: white;">of <span id="pagesCount">&nbsp;0</span></label>
+		<button id='pagination_prev' type="button"
+			class="btn btn-default btn-sm" disabled="disabled"
+			data-analytics-label="Footer-FooterNav-Pagination-PreviousLink">
+			<span  data-analytics-label="Footer-FooterNav-Back-Icon"
+			><em>&lt;</em></span>
+		</button>
+		<button id='pagination_next' type="button"
+			class="btn btn-default btn-sm"
+			data-analytics-label="Footer-FooterNav-Pagination-NextLink">
+			<span data-analytics-label="Footer-FooterNav-Forward-Icon"
+			data-analytics-label="Footer-FooterNav-Pagination-NextLink"			
+			><em>&gt;</em></span>
+		</button>
+
+	</div>
+
+	<!-- End Pagination -->
+	</div>
+
+	
+
+
+	<!--                  
+  <footer class="footer">
+         <div id="footerContainer" class="container">
+            <div class="navbar-header">
+               <a id="copyrightMessage" href="#"></a>
+            </div>
+
+            <div id="footerLinks" class="">
+               <div href="#">PRIVACY POLICY</div>
+           <div id="needHelpLink" href="#needHelpPopup">NEED HELP?</div>
+            </div>
+         </div>
+      </footer> 
+   -->
+
+	<div id="needHelpPopup" class="bubble_below">
+
+		<h3 style="text-align: center;">
+			<span class="closeButton glyphicon glyphicon-remove"></span> Need
+			Help?
+		</h3>
+
+		<div class="resultRow">
+			<h4>How To Use</h4>
+			<p>If you'd like to include this widget in your own web page then
+				just paste this one line of code in the HTML where you'd like the
+				widget and change "widgetContainerID" to the ID of the HTML element.</p>
+			<textarea id="searchWidgetHelpCode"><script id="searchWidgetScript">document.addEventListener("DOMContentLoaded",function(){$("#searchWidgetScript").parent().load("widget/aaa_enterprise_search_widget.html");});</script></textarea>
+		</div>
+
+	</div>
+
+
+	<div id="contactCard_popup_shadow" class="popupShadow"></div>
+
+	<div class="modal fade bs-example-modal-2" tabindex="-1" role="dialog"
+		aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+				<div class="modal-header" id="modelHeader">
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" data-analytics-label="Body-People-ContactCardCloseOverlay-Icon">X</button>
+					<h4 class="modal-title col-xs-10"
+						style="color:#0053A6; padding-bottom: 2px;"><b>Contact Card</b></h4>
+				</div>
+
+				<div class="modal-body">
+
+					<!--    <div id="contactCard_popup" class="col-xs-8"> -->
+
+					<!--      <div id="contactCard_popup_draggable"></div> -->
+
+					<div id="contactCard_popup_content">
+
+						<!-- <div style="display:inline;float:left"><img src="images/PersonPlaceholder.200x150x32.png" alt="Contact card" style="width: 150px;height: 100px;padding-left: 5px;" /></div> -->
+						<div style="float: right;">
+						
+						<div class="col-xs-1" style="width:20%">
+						 	<div id="contactCard_popup_contactimage">
+					<img id="contactCard_contactimg"
+						src="images/PersonPlaceholder.200x150x32.png" alt="Contact card"
+						style="width: 80px; height: 60px; padding-left: 2px;" />
+				       </div>
+						</div>
+						<div class="col-xs-11" style="width:80%">
+							<div id="contactCard_popup_name"
+								class="col-xs-3 contactCard_name contactCard_info">Name</div>
+							<div id="contactCard_popup_position"
+								class="col-xs-9 contactCard_position contactCard_info">Position</div>
+
+							<div class="col-xs-12 contactCard_info">
+								<div id="contactCard_popup_workdiv">
+									<img src="images/work2.PNG" alt="work" style="margin-left:-7px;"
+										id="contactCard_popup_workPhoneimg" /><label
+										id="contactCard_popup_workPhone" style="font-size: 11px; "></label>
+								</div>
+							</div>
+
+							<div class="col-xs-12 contactCard_info">
+								<div id="contactCard_popup_mobilediv">
+									<img id="contactCard_mobilePhoneimg"
+										src="images/cell2.PNG" alt="Mobile"
+										style="margin-left: -5px;" /><label
+										id="contactCard_popup_mobilePhone" style="font-size: 11px"></label>
+								</div>
+							</div>
+
+							<div style="height: 10px; clear: both;"></div>
+
+							<div class="col-xs-12 contactCard_info" id="contactCard_popup_emailediv">
+
+                                                       <img id="contactCard_emailimg" src="images/email2.PNG" alt="Email" style="margin-left:-8px;" /> <label
+                                                              id="contactCard_popup_email" onclick="popupemailclick()" style="color: #0053A6;">[email]</label>
+                                                </div>
+                                                
+                                                <div class="col-xs-12 contactCard_info" id="contactCard_popup_cubediv">
+
+                                                       <img id="contactCard_deskimg" src="images/desk2.PNG"
+                                                       alt="Desk" style="margin-left: -5px;"  /> <label
+                                                              id="contactCard_popup_cube">[cube]</label>
+                                                </div>
+
+
+
+							<div class="col-xs-12 contactCard_info" style="margin-top: 10px;">
+								<label class="contactCard_info_half">Pager</label> <label
+									id="contactCard_popup_pager">[pager]</label>
+							</div>
+							
+
+
+							<div class="col-xs-12 contactCard_info">
+								<label >Manager: </label> <label
+									id="contactCard_popup_reportsTo">[reports to]</label>
+							</div>
+							
+							<div class="col-xs-12 contactCard_info">
+								<label >Worker Type: </label> <label
+									id="contactCard_popup_type">[employee type]</label>
+							</div>
+							
+ 
+							<div class="col-xs-12 contactCard_info">
+								<label >Work Address: </label> <label
+									id="contactCard_popup_officeLocation">[office location]</label>
+							</div>
+
+							<div class="col-xs-12 contactCard_info">
+								<label >Mail Stop: </label> <label
+									id="contactCard_popup_mailStop">[mail stop]</label>
+							</div>
+
+							<div class="col-xs-12 contactCard_info" >
+								<label >Home Location: </label> <label
+									id="contactCard_popup_homeLocation">[home location]</label>
+							</div>
+
+							<div class="col-xs-12 contactCard_info" >
+								<label>Home Number: </label> <label
+									id="contactCard_popup_homeNumber">[home #]</label>
+							</div>
+
+							<div class="col-xs-12 contactCard_info">
+								<label >Home Fax: </label> <label
+									id="contactCard_popup_homeFax">[home fax]</label>
+							</div>
+                         </div>
+
+							<div style="clear: both;"></div>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="popupBubble" class="bubble bubble_warning">
+		<div id="popupBubbleText">&nbsp;</div>
+		<!--<div id="" class="closeButton">x</div>-->
+		<span class="closeButton glyphicon glyphicon-remove"></span>
+	</div>
+
+	<div id="loading">
+		<div class="popupShadow"></div>
+		<span id="loadingIcon"
+			class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+	</div>
+
+	<div id="error">
+		<div class="popupShadow"></div>
+		<div id="errorContent">
+
+			<span id="errorIcon" class="glyphicon glyphicon-exclamation-sign"></span>
+			<div id="errorText"></div>
+			<span id="errorCloseButton"
+				class="closeButton glyphicon glyphicon-remove"></span>
+
+
+		</div>
+	</div>
+
+</body>
+
+
+
+
+
+	<div class="modal fade bs-example-modal-lg-help" tabindex="-1"
+		role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg-help">
+			<div class="modal-content">
+				<div class="modal-header" id="modelHeader">
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">X</button>
+					<h4 class="modal-title col-xs-10" style="color:#0053A6;">Need
+						Help</h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						<font color="#C93F3C"><strong>Is Search not working as-expected? Would you like to see additional content added?  Do you have any other feedback?</strong></font>
+					</p>
+					<ul><li> For any requests, including new content, feedback, or other items, please search for “Enterprise Search Content” in the IT Service Catalog.</li></ul>
+						</br>
+						<a href="https://csaa-insurance.aaa.com/sc/default.aspx" target="_blank">
+						<img id="needhelp" src="./images/needhelp.PNG" alt="needhelp" /></a>
+					</br>
+					<ul><li> To submit a possible incident, or for any other general questions about the application, submit a FixIT ticket through the help desk. </li></ul>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://csaa-insurance.aaa.com/sc/catalog.product.aspx?parent_category_id=_X_&category_id=Report%20an%20Incident&product_id=INC.INC.001" target="_blank">
+						<img id="needhelp" src="./images/fixit.png" style="width:10%;" alt="needhelp" /></a>
+					</br></br>
+					<p>
+						<strong>For a current listing of included resources: </strong>
+					</p>
+
+					<a id="mylife"
+						href="http://aaagateway/sites/bdwuser/Enterprise%20Content%20Search/Home.aspx" target="_blank">
+						<span> (SharePoint - Enterprise Content Search) </span> </a> 
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+<div class="modal fade bs-example-modal-lg"  id="searchTipModal" tabindex="-1" role="dialog"
+		aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header" id="modelHeader">
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" data-analytics-label="Header-SearchTips-CloseOverlay-Icon">X</button>
+					<h4 class="modal-title col-xs-10" style="color:#0053A6;">Search
+						Tips</h4>
+				</div>
+				<div class="modal-body">
+					<img id="searchTips" src="./images/tips-screenshot.png" style="width:98%" alt="searchTips" />
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</html>

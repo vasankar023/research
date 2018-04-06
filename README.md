@@ -1,4 +1,4 @@
-# Spring Sample App
+# RideShare Sample Application
 
 ```cf push```
 
